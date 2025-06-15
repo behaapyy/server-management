@@ -46,7 +46,6 @@ def get_gpu_process_info():
 
     return {idx: '\n'.join(sorted(infos)) for idx, infos in gpu_proc_info.items()}
 
-
 # NVIDIA SMI로 GPU 정보 가져오기
 def get_gpu_info():
     user_info_map = get_gpu_process_info()
@@ -72,17 +71,11 @@ def get_gpu_info():
 
     return pd.DataFrame(data)
 
-
 df = get_gpu_info()
 st.dataframe(df, use_container_width=True)
 
-# 시각화
-# st.subheader(":bar_chart: GPU Utilization")
-# st.bar_chart(df.set_index("GPU")["Utilization (%)"])
 
-# st.subheader(":floppy_disk: Memory Usage")
-# st.bar_chart(df.set_index("GPU")[["Memory Used (MB)", "Memory Total (MB)"]])
-
+# Bar chart
 st.subheader(":bar_chart: GPU Utilization")
 util_chart = alt.Chart(df).mark_bar(
     color='red',
